@@ -6,9 +6,9 @@
 
 #' Return the calender week of the date (ISO 8601)
 #'
-#' @param date to be transformed 
+#' @param date to be transformed
 #' @return the numeric calendar week
-as.calWeek <- function(date) {
+asCalWeek <- function(date) {
   return(as.numeric(format(date, "%W")))
 }
 
@@ -17,7 +17,7 @@ as.calWeek <- function(date) {
 #'
 #' @param date to be transformed
 #' @return the numeric day of the year in the format "yyyyddd"
-as.dayOfYear <- function(date) {
+asDayOfYear <- function(date) {
 
   return(as.numeric(format(date, "%Y%j")))
 }
@@ -25,8 +25,8 @@ as.dayOfYear <- function(date) {
 #' Return the date from the day of the year of the date as yyyyddd.
 #'
 #' @param doy day of the year in the format "yyyyddd"
-#' @return the date 
-doy.as.Date <- function(doy) {
+#' @return the date
+doyAsDate <- function(doy) {
   return(as.Date(x = as.character(doy), format = "%Y%j"))
 }
 
@@ -34,7 +34,7 @@ doy.as.Date <- function(doy) {
 #'
 #' @param dates a vector of dates
 #' @return a vector of days (integers)
-as.days_since_d0 <- function(dates) {
+asDays_since_d0 <- function(dates) {
   dates <- as.Date(dates)
   minDate <- min(dates)
   return(as.numeric(dates - minDate))
@@ -45,7 +45,7 @@ as.days_since_d0 <- function(dates) {
 #' @param dates a vector of dates
 #' @param minDate a date
 #' @return a vector of days (integers)
-as.days_since_global_d0 <- function(dates, minDate) {
+asDays_since_global_d0 <- function(dates, minDate) {
   dates <- as.Date(dates)
   #minDate <- min(dates)
   return(as.numeric(dates - minDate))
@@ -55,8 +55,8 @@ as.days_since_global_d0 <- function(dates, minDate) {
 #'
 #' @param days a vector of days (integers)
 #' @param minDate a date
-#' @return a vector of dates 
-days.as.Date <- function(days, minDate) {
+#' @return a vector of dates
+daysAsDate <- function(days, minDate) {
   return(as.Date(as.Date(minDate) + days))
 }
 
@@ -65,6 +65,6 @@ days.as.Date <- function(days, minDate) {
 #' @param week a calendar week (integer)
 #' @param year a year (integer) in the format yyyy
 #' @return the date of the last day of the calendar week
-as.lastDayOfWeek <- function(week, year) {
+asLastDayOfWeek <- function(week, year) {
   return(as.Date(x = paste0(year, "-",week,"-7"), format = "%Y-%W-%u"))
 }
