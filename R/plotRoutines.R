@@ -4,7 +4,7 @@ library(scales)
 #'
 #' Plotting the Re estimtes with its confidence interval and saving it at the given location.
 #'
-#' @param re.table a data frame containing a column "value" with R_e estimates, values "lower" and "upper" for the confidence interval and a column "date" 
+#' @param re.table a data frame containing a column "value" with R_e estimates, values "lower" and "upper" for the confidence interval and a column "date"
 #' @param outputFile (optional) The Re plot is written to this file
 #' @param title (optional) a vector of time points which should be interpolated
 plot_Re <- function(re.table, outputFile=NULL, title=NULL){
@@ -23,7 +23,7 @@ plot_Re <- function(re.table, outputFile=NULL, title=NULL){
           legend.title = element_text(size=12, face="bold"),
           panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(), axis.line = element_line(colour = "black"))
-  
+
   if(!is.null(title))
     p_interp_d1 <- p_interp_d1 + ggtitle(title)
 
@@ -34,7 +34,7 @@ plot_Re <- function(re.table, outputFile=NULL, title=NULL){
 
 #' Plot smoothed phi estimates over time.
 #'
-#' Plotting the smoothed phi estimates, both with and without point estimates (if the output files are given). 
+#' Plotting the smoothed phi estimates, both with and without point estimates (if the output files are given).
 #' If present, the reported cases are added to plot with the scale on the right y-axis.
 #'
 #' @param smooth.table a data frame containing the smoothed Medians as output from smooth_point_estimates
@@ -44,14 +44,15 @@ plot_Re <- function(re.table, outputFile=NULL, title=NULL){
 #' @param cases.table (optional) The data frame containing the reported cases with the rolling average in column "new_cases_avrg" and "date
 #' @param title (optional) For the title of the plot
 plot_smoothed_phi_with_new_cases <- function(smooth.table, point.table=NULL, cases.table=NULL, outputFile=NULL, outputFileDots=NULL, title=NULL) {
-    
+
   mycolors <- c("estid"="dodgerblue4", "trued"="darkred","esti"="dodgerblue4", "true"="red")
-  
+
   p_smooth_esti_realN <- ggplot() +
     geom_line(aes(x=as.Date(smooth.table$date,"%Y-%m-%d"), y=smooth.table$smoothMedian), size=2.3, colour=mycolors["esti"], alpha=0.5)+
     geom_line(aes(x=as.Date(smooth.table$date,"%Y-%m-%d"), y=smooth.table$smooth5), size=1.3, colour=mycolors["esti"], alpha=0.55, linetype="dashed")+
     geom_line(aes(x=as.Date(smooth.table$date,"%Y-%m-%d"), y=smooth.table$smooth95), size=1.3, colour=mycolors["esti"], alpha=0.55, linetype="dashed")+
     xlab("")+
+    ylab(expression(paste(Phi[est]))) +
     scale_x_date(date_breaks = "1 months", date_labels = "%b %Y") +
     theme(
       axis.text.x = element_text(size = 20, angle = 45, vjust = 1, hjust=1),
@@ -76,10 +77,10 @@ plot_smoothed_phi_with_new_cases <- function(smooth.table, point.table=NULL, cas
       maxY <- max(smooth.table$smoothMedian)+0.1*max(smooth.table$smoothMedian)
       ylimMax <- max(cases.table$new_cases_avrg)
       rel_vs_true_ratio <- maxY/maxX
-      
+
       p_smooth_esti_realN <- p_smooth_esti_realN +
-      geom_line(aes(x=as.Date(cases.table$date,"%Y-%m-%d"), 
-                    y=rescale(cases.table$new_cases_avrg, to=c(minY, maxY), 
+      geom_line(aes(x=as.Date(cases.table$date,"%Y-%m-%d"),
+                    y=rescale(cases.table$new_cases_avrg, to=c(minY, maxY),
                               from=range(cases.table$new_cases_avrg))),size=2.3, color=mycolors["trued"], alpha=0.5) +
         scale_y_continuous(sec.axis = sec_axis(~ . * 1/rel_vs_true_ratio, name = "Reported cases"))
   }
@@ -91,18 +92,18 @@ plot_smoothed_phi_with_new_cases <- function(smooth.table, point.table=NULL, cas
 
   if(!is.null(title))
     p_smooth_esti_realN <- p_smooth_esti_realN + labs(title=toString(title))
-  
+
   if(!is.null(outputFile)) {
     ggsave(p_smooth_esti_realN, height = 8, width = 10, dpi = 220, file = outputFile)
   }
-  
+
   #if present, add the point estimates to the plot and save an additional plot
   if(!is.null(point.table) && nrow(point.table) > 0) {
     p_smooth_esti_realN <- p_smooth_esti_realN +
            geom_point(aes(x=as.Date(point.table$meanBinDate,"%Y-%m-%d"), y=point.table$value, size=point.table$sampleSize), colour="dodgerblue4", fill=mycolors["esti"], alpha=0.55) +
            scale_size(name="Sample size",range = c(0,10), breaks = c(100,500,1000,1500,2000)) +
            theme(legend.position="bottom")
-  
+
       if(!is.null(outputFileDots)) {
         ggsave(p_smooth_esti_realN,height = 8, width = 10, dpi = 220, file = outputFileDots)
       }
