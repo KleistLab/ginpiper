@@ -10,7 +10,8 @@
 #' @param N_sampling (optional) number of resampling to draw the median and percentiles from (default: 1000)
 #' @param p_sample (optional) proportion of point estimates to sample (default: 0.5)
 #' @param width (optional) windowsize for smoothing (default: 7)
-#' @return a data frame containing the smoothed values for each time point  ("t" = time points in ts, "smoothMedian" = median, "smooth5" = 5th percentile and "smooth95" = 95th percentile) 
+#' @return a data frame containing the smoothed values for each time point  ("t" = time points in ts, "smoothMedian" = median, "smooth5" = 5th percentile and "smooth95" = 95th percentile)
+#' @export 
 smooth_point_estimates <- function (input.table, ts, weights=NULL, N_sampling=NULL, p_sample=NULL, width=NULL) {
   # number of resamplings
   if(is.null(N_sampling))
@@ -45,4 +46,3 @@ smooth_point_estimates <- function (input.table, ts, weights=NULL, N_sampling=NU
   df <- data.frame(t=ts, smoothMedian=smoothed_quantiles[2,], smooth5=smoothed_quantiles[1,], smooth95=smoothed_quantiles[3,])
   return(df)
 }
-
