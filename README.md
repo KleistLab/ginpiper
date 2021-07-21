@@ -9,6 +9,17 @@ This R package is used by GInPipe [[1]](#1) - Genome-based Incidence Estimation 
   - ggplot2
   - R0
   - scales
+
+## Installation
+
+*ginpiper* can be installed in R using **devtools**:
+
+```
+install.packages("devtools")
+
+library(devtools)
+devtools::install_github("trofimovamw/ginpiper")
+```
  
 ## Reference
 <a id="1">[1]</a> 
