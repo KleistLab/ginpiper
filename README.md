@@ -1,5 +1,8 @@
 # ginpiper - Package for smooth curve estimation, R_e computation and plotting
 
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![DOI:10.1101/2021.05.14.21257234](http://img.shields.io/badge/DOI-10.1101/2021.05.14.21257234-blue.svg)](https://doi.org/10.1101/2021.05.14.21257234)
+
 This R package is used by GInPipe [[1]](#1) - Genome-based Incidence Estimation Pipeline - to draw a smooth incidence trajectory estimate, calculate the corresponding effective reproduction number and make correspoonding plots and tables.
 
 ## Dependencies
