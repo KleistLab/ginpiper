@@ -21,7 +21,7 @@ This R package is used by GInPipe [[1]](#1) - Genome-based Incidence Estimation 
 install.packages("devtools")
 
 library(devtools)
-devtools::install_github("trofimovamw/ginpiper")
+devtools::install_github("KleistLab/ginpiper")
 ```
  
 ## Reference
